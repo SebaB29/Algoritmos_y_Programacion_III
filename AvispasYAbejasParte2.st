@@ -9,7 +9,7 @@ DenotativeObject subclass: #HabitatDeLasAvispas
 
 !classDefinition: 'HabitatDeLasAvispas class' category: 'AvispasYAbejasParte2'!
 HabitatDeLasAvispas class
-	instanceVariableNames: 'cantidadDeHuevosDeAvispas cantidadDeOrugas'!
+	instanceVariableNames: 'cantidadDeOrugas cantidadDeHuevosDeAvispas cantidadDePolillas'!
 
 !HabitatDeLasAvispas class methodsFor: 'oruga' stamp: 'FS 4/21/2022 20:23:43'!
 cantidadDeOrugas
@@ -24,10 +24,15 @@ ponerOrugas: cantidadDeOrugasASumar
 cantidadDeHuevosDeAvispas
 	^cantidadDeHuevosDeAvispas .! !
 
-!HabitatDeLasAvispas class methodsFor: 'huevos' stamp: 'FS 4/21/2022 20:30:17'!
-ponerHuevo
+!HabitatDeLasAvispas class methodsFor: 'huevos' stamp: 'FS 4/22/2022 13:50:18'!
+ponerHuevoDeAvispaOrianaYOrnella
 	cantidadDeHuevosDeAvispas := cantidadDeHuevosDeAvispas + 1.
 	cantidadDeOrugas := cantidadDeOrugas -1.! !
+
+!HabitatDeLasAvispas class methodsFor: 'huevos' stamp: 'FS 4/22/2022 13:49:48'!
+ponerHuevoDeAvispaPolly
+	cantidadDeHuevosDeAvispas := cantidadDeHuevosDeAvispas + 1.
+	cantidadDePolillas := cantidadDePolillas -1.! !
 
 
 !HabitatDeLasAvispas class methodsFor: 'reseteos' stamp: 'FS 4/21/2022 20:09:54'!
@@ -38,13 +43,27 @@ resetearCantidadDeHuevos
 resetearCantidadDeOrugas
 	cantidadDeOrugas := 0.! !
 
+!HabitatDeLasAvispas class methodsFor: 'reseteos' stamp: 'FS 4/22/2022 13:44:18'!
+resetearCantidadDePolillas
+	cantidadDePolillas := 0.! !
 
-!HabitatDeLasAvispas class methodsFor: '--** private fileout/in **--' stamp: 'FS 4/22/2022 11:11:17'!
+
+!HabitatDeLasAvispas class methodsFor: 'polillas' stamp: 'FS 4/22/2022 13:33:48'!
+cantidadDePolillas
+	^cantidadDePolillas.! !
+
+!HabitatDeLasAvispas class methodsFor: 'polillas' stamp: 'FS 4/22/2022 13:35:53'!
+ponerPolillas: cantidadDePolillasASumar
+	cantidadDePolillas := cantidadDePolillas +cantidadDePolillasASumar .! !
+
+
+!HabitatDeLasAvispas class methodsFor: '--** private fileout/in **--' stamp: 'FS 4/22/2022 14:39:06'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
-	cantidadDeHuevosDeAvispas := 1.
-	cantidadDeOrugas := 0.! !
+	cantidadDeOrugas := 0.
+	cantidadDeHuevosDeAvispas := 0.
+	cantidadDePolillas := 0.! !
 
 
 !classDefinition: #PruebasReproduccionDeAvispas category: 'AvispasYAbejasParte2'!
@@ -274,9 +293,10 @@ cantidadDeHuevosConLaFirmaGeneticaDePolly
 habitat
 	^HabitatDeLasAvispas.! !
 
-!PruebasReproduccionDeAvispas class methodsFor: 'Para completar' stamp: 'FS 4/21/2022 20:50:15'!
+!PruebasReproduccionDeAvispas class methodsFor: 'Para completar' stamp: 'FS 4/22/2022 13:45:48'!
 hacerQueElHabitatTengaLosRecursosSuficientes
-	HabitatDeLasAvispas ponerOrugas: 1.! !
+	HabitatDeLasAvispas ponerOrugas: 2.
+	HabitatDeLasAvispas ponerPolillas: 1.! !
 
 !PruebasReproduccionDeAvispas class methodsFor: 'Para completar' stamp: 'JMB 4/19/2022 19:14:28'!
 laAvispaLara
@@ -286,34 +306,36 @@ laAvispaLara
 laAvispaOriana
 	^laAvispaOriana.! !
 
-!PruebasReproduccionDeAvispas class methodsFor: 'Para completar' stamp: 'JMB 4/19/2022 19:14:39'!
+!PruebasReproduccionDeAvispas class methodsFor: 'Para completar' stamp: 'FS 4/22/2022 13:29:57'!
 laAvispaOrnella
-	Assert isTrue: false description: 'Reemplazar esto por la implementación correspondiente'.! !
+	^laAvispaOrnella .! !
 
-!PruebasReproduccionDeAvispas class methodsFor: 'Para completar' stamp: 'JMB 4/19/2022 19:14:46'!
+!PruebasReproduccionDeAvispas class methodsFor: 'Para completar' stamp: 'FS 4/22/2022 13:31:57'!
 laAvispaPolly
-	Assert isTrue: false description: 'Reemplazar esto por la implementación correspondiente'.! !
+	^laAvispaPolly .! !
 
 !PruebasReproduccionDeAvispas class methodsFor: 'Para completar' stamp: 'FS 4/21/2022 20:40:06'!
 queElHabitatTengaDosOrugasMas
 	HabitatDeLasAvispas ponerOrugas: 2.! !
 
-!PruebasReproduccionDeAvispas class methodsFor: 'Para completar' stamp: 'JMB 4/19/2022 19:15:33'!
+!PruebasReproduccionDeAvispas class methodsFor: 'Para completar' stamp: 'FS 4/22/2022 13:51:54'!
 queElHabitatTengaDosPolillasMas
-	Assert isTrue: false description: 'Reemplazar esto por la implementación correspondiente'.! !
+	HabitatDeLasAvispas ponerPolillas: 2.! !
 
 !PruebasReproduccionDeAvispas class methodsFor: 'Para completar' stamp: 'FS 4/21/2022 20:40:18'!
 queElHabitatTengaUnaOrugaMas
 	HabitatDeLasAvispas ponerOrugas: 1.! !
 
-!PruebasReproduccionDeAvispas class methodsFor: 'Para completar' stamp: 'JMB 4/19/2022 19:15:42'!
+!PruebasReproduccionDeAvispas class methodsFor: 'Para completar' stamp: 'FS 4/22/2022 13:35:53'!
 queElHabitatTengaUnaPolillaMas
-	Assert isTrue: false description: 'Reemplazar esto por la implementación correspondiente'.! !
+	HabitatDeLasAvispas ponerPolillas: 1.! !
 
-!PruebasReproduccionDeAvispas class methodsFor: 'Para completar' stamp: 'FS 4/21/2022 20:36:38'!
+!PruebasReproduccionDeAvispas class methodsFor: 'Para completar' stamp: 'FS 4/22/2022 13:44:49'!
 retrocederElHabitatAlInicioDeLosTiempos
 	HabitatDeLasAvispas resetearCantidadDeHuevos .
 	HabitatDeLasAvispas resetearCantidadDeOrugas .
+	
+	HabitatDeLasAvispas resetearCantidadDePolillas .
 	! !
 
 
@@ -330,9 +352,36 @@ DenotativeObject subclass: #laAvispaOriana
 laAvispaOriana class
 	instanceVariableNames: ''!
 
-!laAvispaOriana class methodsFor: 'as yet unclassified' stamp: 'FS 4/21/2022 20:48:08'!
+!laAvispaOriana class methodsFor: 'as yet unclassified' stamp: 'FS 4/22/2022 13:50:18'!
 intentarReproducirse
 
-	(HabitatDeLasAvispas cantidadDeOrugas > 0) ifTrue: [HabitatDeLasAvispas ponerHuevo.]! !
+	(HabitatDeLasAvispas cantidadDeOrugas > 0) ifTrue: [HabitatDeLasAvispas ponerHuevoDeAvispaOrianaYOrnella.]! !
+
+
+!classDefinition: #laAvispaOrnella category: 'AvispasYAbejasParte2'!
+laAvispaOriana subclass: #laAvispaOrnella
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'AvispasYAbejasParte2'!
+
+
+!classDefinition: #laAvispaPolly category: 'AvispasYAbejasParte2'!
+laAvispaOriana subclass: #laAvispaPolly
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'AvispasYAbejasParte2'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'laAvispaPolly class' category: 'AvispasYAbejasParte2'!
+laAvispaPolly class
+	instanceVariableNames: ''!
+
+!laAvispaPolly class methodsFor: 'as yet unclassified' stamp: 'FS 4/22/2022 13:51:05'!
+intentarReproducirse
+
+	(HabitatDeLasAvispas cantidadDePolillas > 0) ifTrue: [HabitatDeLasAvispas ponerHuevoDeAvispaPolly .]! !
 
 HabitatDeLasAvispas initializeAfterFileIn!
