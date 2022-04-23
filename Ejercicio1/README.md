@@ -20,9 +20,9 @@ Con lo que vimos en la clase del Jueves (en la parte teórica, prototipos vs cla
 
 1) No pasaron de una.
 2) Si se puede.
-3) Para que pase le primer test, tuvimos que implementar
-4) .
-5) 
+3) Para que pase solo el primer test, tuvimos que inicializar la cantidadDeHuevosDeAvispas en 0.
+   Después para que pase el primero y el segundo, para que hacerQueElHabitatTengaLosRecursosSuficientes, tuvimos inicializar la cantidad de orugas en 1 y    luego de reproducirse, decrementamos la cantidad de orugas e incrementamos la cantidadDeHuevosDeAvispa.
+   Luego para que pase el primero, el segundo y el tercero, debo restaurar la cantidadDeHUevosDeAvispas en 0 nuevamente y también para que                  hacerQueElHabitatTengaLosRecursosSuficientes, tuvimos que inicializar la cantidad de orugas en 2.
 
 
 
