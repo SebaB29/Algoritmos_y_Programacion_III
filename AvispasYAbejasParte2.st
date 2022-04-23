@@ -41,39 +41,23 @@ cantidadDeHuevosDeLaAvispaPolly
 cantidadDeHuevosDeLasAvispasOrianaYOrnella
 	^cantidadDeHuevosDeLaAvispaOrianaYOrnella .! !
 
-!HabitatDeLasAvispas class methodsFor: 'huevos' stamp: 'SB 4/22/2022 18:16:48'!
-ponerHuevoDeAvispaLara
+!HabitatDeLasAvispas class methodsFor: 'huevos' stamp: 'FS 4/22/2022 20:21:34'!
+incrementarLaCantidadDeHuevosDeLaAvispaPolly
+	cantidadDeHuevosDeLaAvispaPolly := cantidadDeHuevosDeLaAvispaPolly + 1.! !
 
-	"
-	Como se va a poner huevos de laAvispaLara se da por hecho que se los roba a otra Avispa, por lo tanto, como en
-	intentarReproducirse la avispa Lara va a fijarse primero si le puede robar huevos a las avispas Ornella y Oriana,
-	si ellas tienen huevos en el nido se los roba, sino se los debe robar a laAvispaPolly.
-	"
-	
-	(self cantidadDeHuevosDeLasAvispasOrianaYOrnella > 0) ifTrue: self robarHuevosDelNidoDeOrianaYOrnella ifFalse: self robarHuevosDelNidoDePolly .
-! !
+!HabitatDeLasAvispas class methodsFor: 'huevos' stamp: 'FS 4/22/2022 20:34:13'!
+incrementarLaCantidadDeHuevosDeLasAvispasOrianaYOrnella
+	cantidadDeHuevosDeLaAvispaOrianaYOrnella := cantidadDeHuevosDeLaAvispaOrianaYOrnella + 1.! !
 
-!HabitatDeLasAvispas class methodsFor: 'huevos' stamp: 'SB 4/22/2022 19:29:37'!
-ponerHuevoDeAvispaOrianaYOrnella
-
-	cantidadDeHuevosDeLaAvispaOrianaYOrnella := cantidadDeHuevosDeLaAvispaOrianaYOrnella + 1.
-	self reducirLaCantidadDeOrugasEnElHabitat.! !
-
-!HabitatDeLasAvispas class methodsFor: 'huevos' stamp: 'SB 4/22/2022 19:30:11'!
-ponerHuevoDeAvispaPolly
-
-	cantidadDeHuevosDeLaAvispaPolly := cantidadDeHuevosDeLaAvispaPolly + 1.
-	self reducirLaCantidadDePolillasEnElHabitat.! !
-
-!HabitatDeLasAvispas class methodsFor: 'huevos' stamp: 'SB 4/22/2022 18:12:17'!
+!HabitatDeLasAvispas class methodsFor: 'huevos' stamp: 'FS 4/22/2022 20:57:20'!
 robarHuevosDelNidoDeOrianaYOrnella
 	cantidadDeHuevosDeLaAvispaLara := cantidadDeHuevosDeLaAvispaLara + cantidadDeHuevosDeLaAvispaOrianaYOrnella .
 	cantidadDeHuevosDeLaAvispaOrianaYOrnella := 0.! !
 
-!HabitatDeLasAvispas class methodsFor: 'huevos' stamp: 'SB 4/22/2022 18:12:35'!
+!HabitatDeLasAvispas class methodsFor: 'huevos' stamp: 'FS 4/22/2022 20:58:24'!
 robarHuevosDelNidoDePolly
 	cantidadDeHuevosDeLaAvispaLara := cantidadDeHuevosDeLaAvispaLara + cantidadDeHuevosDeLaAvispaPolly .
-	cantidadDeHuevosDeLaAvispaPolly := 0.! !
+	cantidadDeHuevosDeLaAvispaPolly := 0."quiza aca habira que poner una funcion tipo restaurar huevos de polly"! !
 
 
 !HabitatDeLasAvispas class methodsFor: 'restauracion de valores' stamp: 'SB 4/22/2022 19:34:16'!
@@ -105,16 +89,16 @@ reducirLaCantidadDePolillasEnElHabitat
 	^ cantidadDePolillasEnElHabitat := cantidadDePolillasEnElHabitat -1! !
 
 
-!HabitatDeLasAvispas class methodsFor: '--** private fileout/in **--' stamp: 'SB 4/22/2022 19:37:08'!
+!HabitatDeLasAvispas class methodsFor: '--** private fileout/in **--' stamp: 'FS 4/22/2022 21:02:34'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
 	cantidadDeHuevosDeLaAvispaLara := 0.
-	cantidadDePolillasEnElHabitat := 1.
+	cantidadDePolillasEnElHabitat := 0.
 	cantidadDeHuevosDeAvispas := 0.
-	cantidadDeOrugasEnElHabitat := 1.
-	cantidadDeHuevosDeLaAvispaPolly := 0.
-	cantidadDeHuevosDeLaAvispaOrianaYOrnella := 1.! !
+	cantidadDeOrugasEnElHabitat := 0.
+	cantidadDeHuevosDeLaAvispaPolly := 1.
+	cantidadDeHuevosDeLaAvispaOrianaYOrnella := 0.! !
 
 
 !classDefinition: #PruebasReproduccionDeAvispas category: 'AvispasYAbejasParte2'!
@@ -406,11 +390,32 @@ DenotativeObject subclass: #laAvispaLara
 laAvispaLara class
 	instanceVariableNames: ''!
 
-!laAvispaLara class methodsFor: 'reproduccion' stamp: 'SB 4/22/2022 19:17:38'!
+!laAvispaLara class methodsFor: 'reproduccion' stamp: 'FS 4/22/2022 20:47:29'!
 intentarReproducirse
 
 	((HabitatDeLasAvispas cantidadDeHuevosDeLasAvispasOrianaYOrnella > 0) | (HabitatDeLasAvispas cantidadDeHuevosDeLaAvispaPolly > 0)) ifTrue:
-	[HabitatDeLasAvispas ponerHuevoDeAvispaLara .].! !
+	[self ponerHuevoDeLaAvispaLara .].! !
+
+!laAvispaLara class methodsFor: 'reproduccion' stamp: 'FS 4/22/2022 21:01:30'!
+ponerHuevoDeLaAvispaLara
+
+	"
+	Como se va a poner huevos de laAvispaLara se da por hecho que se los roba a otra Avispa, por lo tanto, como en
+	intentarReproducirse la avispa Lara va a fijarse primero si le puede robar huevos a las avispas Ornella y Oriana,
+	si ellas tienen huevos en el nido se los roba, sino se los debe robar a laAvispaPolly.
+	"
+	
+	(HabitatDeLasAvispas cantidadDeHuevosDeLasAvispasOrianaYOrnella > 0) ifTrue: self saquearElNidoDeOrianaYOrnella ifFalse: self saquearElNidoDePolly .! !
+
+
+!laAvispaLara class methodsFor: 'robar' stamp: 'FS 4/22/2022 20:57:20'!
+saquearElNidoDeOrianaYOrnella
+	
+	HabitatDeLasAvispas robarHuevosDelNidoDeOrianaYOrnella .! !
+
+!laAvispaLara class methodsFor: 'robar' stamp: 'FS 4/22/2022 20:59:52'!
+saquearElNidoDePolly
+	HabitatDeLasAvispas robarHuevosDelNidoDePolly .! !
 
 
 !classDefinition: #laAvispaOriana category: 'AvispasYAbejasParte2'!
@@ -426,10 +431,16 @@ DenotativeObject subclass: #laAvispaOriana
 laAvispaOriana class
 	instanceVariableNames: ''!
 
-!laAvispaOriana class methodsFor: 'reproduccion' stamp: 'SB 4/22/2022 19:27:01'!
+!laAvispaOriana class methodsFor: 'reproduccion' stamp: 'FS 4/22/2022 20:35:08'!
 intentarReproducirse
 
-	(HabitatDeLasAvispas cantidadDeOrugasEnElHabitat > 0) ifTrue: [HabitatDeLasAvispas ponerHuevoDeAvispaOrianaYOrnella.]! !
+	(HabitatDeLasAvispas cantidadDeOrugasEnElHabitat > 0) ifTrue: [self ponerHuevoDeAvispaOrianaYOrnella .]! !
+
+!laAvispaOriana class methodsFor: 'reproduccion' stamp: 'FS 4/22/2022 20:34:13'!
+ponerHuevoDeAvispaOrianaYOrnella
+
+	HabitatDeLasAvispas incrementarLaCantidadDeHuevosDeLasAvispasOrianaYOrnella .
+	HabitatDeLasAvispas reducirLaCantidadDeOrugasEnElHabitat.! !
 
 
 !classDefinition: #laAvispaOrnella category: 'AvispasYAbejasParte2'!
@@ -453,9 +464,15 @@ DenotativeObject subclass: #laAvispaPolly
 laAvispaPolly class
 	instanceVariableNames: ''!
 
-!laAvispaPolly class methodsFor: 'reproduccion' stamp: 'SB 4/22/2022 19:30:48'!
+!laAvispaPolly class methodsFor: 'reproduccion' stamp: 'FS 4/22/2022 20:28:23'!
 intentarReproducirse
 
-	(HabitatDeLasAvispas cantidadDePolillasEnElHabitat > 0) ifTrue: [HabitatDeLasAvispas ponerHuevoDeAvispaPolly .]! !
+	(HabitatDeLasAvispas cantidadDePolillasEnElHabitat > 0) ifTrue: [self ponerHuevoDeLaAvispaPolly .]! !
+
+!laAvispaPolly class methodsFor: 'reproduccion' stamp: 'FS 4/22/2022 20:25:36'!
+ponerHuevoDeLaAvispaPolly
+
+	HabitatDeLasAvispas incrementarLaCantidadDeHuevosDeLaAvispaPolly .
+	HabitatDeLasAvispas  reducirLaCantidadDePolillasEnElHabitat.! !
 
 HabitatDeLasAvispas initializeAfterFileIn!
