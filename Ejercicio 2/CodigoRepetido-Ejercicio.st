@@ -21,38 +21,28 @@ TestCase subclass: #CustomerBookTest
 	poolDictionaries: ''
 	category: 'CodigoRepetido-Ejercicio'!
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'FS 4/29/2022 11:03:34'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'SB 4/29/2022 14:52:28'!
 test01AddingCustomerShouldNotTakeMoreThan50Milliseconds
 
-	| customerBook millisecondsBeforeRunning millisecondsAfterRunning |
+	| customerBook |
 	
 	customerBook := CustomerBook new.
 	
-	millisecondsBeforeRunning := Time millisecondClockValue * millisecond.
-	customerBook addCustomerNamed: 'John Lennon'.
-	millisecondsAfterRunning := Time millisecondClockValue * millisecond.
-	
-	self assert: (millisecondsAfterRunning-millisecondsBeforeRunning) < (50 * millisecond)
-	
+	self comprobarSi: [customerBook addCustomerNamed: 'John Lennon'.] seEjecutaEnMenosDe: 50 * millisecond.
 
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'NR 4/3/2019 10:50:13'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'SB 4/29/2022 14:52:32'!
 test02RemovingCustomerShouldNotTakeMoreThan100Milliseconds
 
-	| customerBook millisecondsBeforeRunning millisecondsAfterRunning paulMcCartney |
+	| customerBook paulMcCartney |
 	
 	customerBook := CustomerBook new.
 	paulMcCartney := 'Paul McCartney'.
-	
+
 	customerBook addCustomerNamed: paulMcCartney.
-	  
-	millisecondsBeforeRunning := Time millisecondClockValue * millisecond.
-	customerBook removeCustomerNamed: paulMcCartney.
-	millisecondsAfterRunning := Time millisecondClockValue * millisecond.
-	
-	self assert: (millisecondsAfterRunning-millisecondsBeforeRunning) < (100 * millisecond)
-	
+
+	self comprobarSi: [customerBook removeCustomerNamed: paulMcCartney] seEjecutaEnMenosDe: 100 * millisecond.
 ! !
 
 !CustomerBookTest methodsFor: 'testing' stamp: 'FS 4/29/2022 12:22:22'!
@@ -180,17 +170,16 @@ bloqueAEvaluar: unBloque tipoDeError: unError siError: bloqueAEjecutar
 		on: unError 
 		do: bloqueAEjecutar.! !
 
-!CustomerBookTest methodsFor: 'auxiliares' stamp: 'FS 4/29/2022 11:52:18'!
-modificar: unCustomerBook haciendo: unaAccion con: unCustomer 
+!CustomerBookTest methodsFor: 'auxiliares' stamp: 'SB 4/29/2022 14:52:17'!
+comprobarSi: unBloque seEjecutaEnMenosDe: tiempoEsperado
 
 	|millisecondsBeforeRunning millisecondsAfterRunning|
 
 	millisecondsBeforeRunning := Time millisecondClockValue * millisecond.
-	"unCustomerBook unaAccion: unCustomer."
-	unCustomerBook removeCustomerNamed: unCustomer.
+	unBloque value.
 	millisecondsAfterRunning := Time millisecondClockValue * millisecond.
 
-	^(millisecondsAfterRunning-millisecondsBeforeRunning)! !
+	self assert: (millisecondsAfterRunning-millisecondsBeforeRunning) < tiempoEsperado! !
 
 
 !classDefinition: #CustomerBook category: 'CodigoRepetido-Ejercicio'!
@@ -219,10 +208,11 @@ initialize
 	suspended:= OrderedCollection new.! !
 
 
-!CustomerBook methodsFor: 'customer management' stamp: 'NR 4/3/2019 10:14:26'!
+!CustomerBook methodsFor: 'customer management' stamp: 'SB 4/29/2022 13:45:02'!
 addCustomerNamed: aName
 
 	aName isEmpty ifTrue: [ self signalCustomerNameCannotBeEmpty ].
+	
 	((active includes: aName) or: [suspended includes: aName]) ifTrue: [ self signalCustomerAlreadyExists ].
 	
 	active add: aName ! !
@@ -242,36 +232,12 @@ numberOfSuspendedCustomers
 	
 	^suspended size! !
 
-!CustomerBook methodsFor: 'customer management' stamp: 'FS 4/29/2022 12:40:55'!
+!CustomerBook methodsFor: 'customer management' stamp: 'SB 4/29/2022 14:54:13'!
 removeCustomerNamed: aName
  
-	"1 to: active size do: 
-	[ :index |
-		aName = (active at: index)
-			ifTrue: [
-				active removeAt: index.
-				^ aName 
-			] 
-	].
+	[(self fueRemovido: aName De: active) or: (self fueRemovido: aName De: suspended)] ifTrue: [^aName].
 
-	1 to: suspended size do: 
-	[ :index |
-		aName = (suspended at: index)
-			ifTrue: [
-				suspended removeAt: index.
-				^ aName 
-			] 
-	]."
-
-	self removerDe:active siSeEncuentra: aName.
-	
-	self removerDe: suspended siSeEncuentra: aName.
-	
-
-	
-	
-	^ NotFound signal.
-! !
+	^ NotFound signal.! !
 
 !CustomerBook methodsFor: 'customer management' stamp: 'FS 4/29/2022 11:35:22'!
 signalCustomerAlreadyExists 
@@ -296,6 +262,18 @@ suspendCustomerNamed: aName
 	suspended add: aName
 ! !
 
+
+!CustomerBook methodsFor: 'aux' stamp: 'SB 4/29/2022 14:34:19'!
+fueRemovido: unNombre De: unaLista
+
+	1 to: unaLista size do: 
+		[ :index |
+			unNombre = (unaLista at: index)
+				ifTrue: [
+					unaLista removeAt: index.
+					^ unNombre 
+				] 
+		].! !
 
 !CustomerBook methodsFor: 'aux' stamp: 'FS 4/29/2022 12:33:51'!
 removerDe: unaLista siSeEncuentra: unNombre
