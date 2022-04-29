@@ -45,14 +45,14 @@ test02RemovingCustomerShouldNotTakeMoreThan100Milliseconds
 	self comprobarSi: [customerBook removeCustomerNamed: paulMcCartney] seEjecutaEnMenosDe: 100 * millisecond.
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'FS 4/29/2022 17:24:50'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'FS 4/29/2022 19:18:50'!
 test03CanNotAddACustomerWithEmptyName 
 
 	| customerBook |
 			
 	customerBook := CustomerBook new.
 		
-	self bloqueAEvaluar: [ customerBook addCustomerNamed: '']	 tipoDeError: Error siError: [ :anError |
+	self bloqueAEvaluar: [ customerBook addCustomerNamed: ''.]	 tipoDeError: Error siError: [ :anError |
 			self assert: anError messageText = CustomerBook customerCanNotBeEmptyErrorMessage.
 			self assert: customerBook isEmpty ].
 	! !
@@ -141,10 +141,14 @@ test08CanNotSuspendAnAlreadySuspendedCustomer
 ! !
 
 
-!CustomerBookTest methodsFor: 'auxiliares' stamp: 'FS 4/29/2022 12:15:01'!
+!CustomerBookTest methodsFor: 'auxiliares' stamp: 'FS 4/29/2022 19:27:15'!
 bloqueAEvaluar: unBloque tipoDeError: unError siError: bloqueAEjecutar
 
-	unBloque
+"	CAMBIAR NOMBRE Y HACERLO MAS DESCRIPTIVO
+	TIENE QUE HABLAR DE QUE EL BLOQUE QUE RECIBE TIENE QUE FALLAR SI O SI
+"
+
+	[unBloque value. self fail]
 		on: unError 
 		do: bloqueAEjecutar.! !
 
@@ -165,13 +169,6 @@ verificarCantidadesDe: customerBook deActive:cantActive deSuspended:cantSuspende
 	self assert: cantActive equals: customerBook numberOfActiveCustomers.
 	self assert: cantSuspended equals: customerBook numberOfSuspendedCustomers.
 	self assert: cantTotal equals: customerBook numberOfCustomers! !
-
-!CustomerBookTest methodsFor: 'auxiliares' stamp: 'FS 4/29/2022 16:33:39'!
-verificarSiLosValoresEsperados: customerBook
-
-	self assert: 0 equals: customerBook numberOfActiveCustomers.
-	self assert: 1 equals: customerBook numberOfSuspendedCustomers.
-	self assert: 1 equals: customerBook numberOfCustomers! !
 
 
 !classDefinition: #CustomerBook category: 'CodigoRepetido-Ejercicio'!
@@ -199,11 +196,12 @@ initialize
 	active := OrderedCollection new.
 	suspended:= OrderedCollection new.! !
 
-!CustomerBook methodsFor: 'initialization' stamp: 'FS 4/29/2022 17:21:00'!
+!CustomerBook methodsFor: 'initialization' stamp: 'FS 4/29/2022 18:47:40'!
 initializeWith: aPerson
-	super initialize.
+	"super initialize.
 	active := OrderedCollection new.
-	suspended:= OrderedCollection new.
+	suspended:= OrderedCollection new."
+	self initialize .
 	self addCustomerNamed: aPerson .! !
 
 
@@ -216,24 +214,24 @@ addCustomerNamed: aName
 	
 	self añadir: aName a: active ! !
 
-!CustomerBook methodsFor: 'customer management' stamp: 'FS 4/29/2022 16:13:13'!
+!CustomerBook methodsFor: 'customer management' stamp: 'FS 4/29/2022 18:58:49'!
 numberOfActiveCustomers
 	
 	^active size
 	
-	"ELIMINAR"! !
+! !
 
 !CustomerBook methodsFor: 'customer management' stamp: 'FS 4/29/2022 11:34:11'!
 numberOfCustomers
 	
 	^active size + suspended size! !
 
-!CustomerBook methodsFor: 'customer management' stamp: 'FS 4/29/2022 16:13:20'!
+!CustomerBook methodsFor: 'customer management' stamp: 'FS 4/29/2022 18:58:42'!
 numberOfSuspendedCustomers
 	
 	^suspended size
 	
-	"ELIMINAR"! !
+	! !
 
 !CustomerBook methodsFor: 'customer management' stamp: 'FS 4/29/2022 15:21:52'!
 removeCustomerNamed: aName
@@ -242,12 +240,11 @@ removeCustomerNamed: aName
 
 	^ NotFound signal.! !
 
-!CustomerBook methodsFor: 'customer management' stamp: 'FS 4/29/2022 15:23:53'!
+!CustomerBook methodsFor: 'customer management' stamp: 'FS 4/29/2022 18:55:47'!
 signalCustomerAlreadyExists 
 
 	self error: self class customerAlreadyExistsErrorMessage
-	
-	"seria relevante extraer el signalCustomerAlreadyExists  y signalCustomerNameCannot.... ya que son de solo una linea y  	quedarian igual que antes???" ! !
+! !
 
 !CustomerBook methodsFor: 'customer management' stamp: 'FS 4/29/2022 11:37:40'!
 signalCustomerNameCannotBeEmpty
@@ -286,7 +283,7 @@ existeCustomerConNombre: aName
 
 	 ((active includes: aName) or: [suspended includes: aName]) ifTrue: [ self signalCustomerAlreadyExists ]! !
 
-!CustomerBook methodsFor: 'aux' stamp: 'FS 4/29/2022 15:50:34'!
+!CustomerBook methodsFor: 'aux' stamp: 'FS 4/29/2022 19:06:04'!
 fueRemovido: unNombre De: unaLista
 
 	[unaLista remove: unNombre]
