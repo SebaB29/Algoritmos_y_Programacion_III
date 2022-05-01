@@ -72,7 +72,7 @@ test04CanNotRemoveAnInvalidCustomer
 			self assert: (customerBook includesCustomerNamed: johnLennon) ].
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'FS 4/30/2022 16:26:43'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'FS 5/1/2022 17:05:22'!
 test05SuspendingACustomerShouldNotRemoveItFromCustomerBook
 
 	| customerBook paulMcCartney|
@@ -82,14 +82,14 @@ test05SuspendingACustomerShouldNotRemoveItFromCustomerBook
 	
 	customerBook suspendCustomerNamed: paulMcCartney.
 	
-	self verificarCantidadesEsperadasDe: customerBook deActive:0  deSuspended:1  cantTotal: 1.
+	self verificarCantidadesEsperadasDe: customerBook deActive:0  deSuspended:1 . 
 	self assert: (customerBook includesCustomerNamed: paulMcCartney).
 	
 
 	
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'FS 4/30/2022 16:26:36'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'FS 5/1/2022 17:05:34'!
 test06RemovingASuspendedCustomerShouldRemoveItFromCustomerBook
 
 	| customerBook paulMcCartney|
@@ -100,7 +100,7 @@ test06RemovingASuspendedCustomerShouldRemoveItFromCustomerBook
 	customerBook suspendCustomerNamed: paulMcCartney.
 	customerBook removeCustomerNamed: paulMcCartney.
 	
-	self verificarCantidadesEsperadasDe: customerBook deActive:0  deSuspended:0  cantTotal: 0.
+	self verificarCantidadesEsperadasDe: customerBook deActive:0  deSuspended:0.
 	self deny: (customerBook includesCustomerNamed: paulMcCartney).
 
 
@@ -139,22 +139,13 @@ test08CanNotSuspendAnAlreadySuspendedCustomer
 ! !
 
 
-!CustomerBookTest methodsFor: 'verificar customers' stamp: 'FS 4/30/2022 14:40:12'!
-verificarCantidadesDe: customerBook deActive:cantActive deSuspended:cantSuspended
+!CustomerBookTest methodsFor: 'verificar customers' stamp: 'FS 5/1/2022 17:04:43'!
+verificarCantidadesEsperadasDe: customerBook deActive:cantActive deSuspended:cantSuspended
 
 	self assert: cantActive equals: customerBook numberOfActiveCustomers.
 	self assert: cantSuspended equals: customerBook numberOfSuspendedCustomers.
 	self assert: (cantActive + cantSuspended) equals: customerBook numberOfCustomers.
-	
-	"preguntar segunda opinion para ver si  (cantActive + cantSuspended) es preferible antes que agregar
-	otro colaborador con esa cantida ya que hay un metodo que lo aplica "! !
-
-!CustomerBookTest methodsFor: 'verificar customers' stamp: 'FS 4/30/2022 15:40:45'!
-verificarCantidadesEsperadasDe: customerBook deActive:cantActive deSuspended:cantSuspended cantTotal:cantTotal
-
-	self assert: cantActive equals: customerBook numberOfActiveCustomers.
-	self assert: cantSuspended equals: customerBook numberOfSuspendedCustomers.
-	self assert: cantTotal equals: customerBook numberOfCustomers! !
+	! !
 
 
 !CustomerBookTest methodsFor: 'testear Velocidad de ejecucion' stamp: 'SB 4/29/2022 14:52:17'!
