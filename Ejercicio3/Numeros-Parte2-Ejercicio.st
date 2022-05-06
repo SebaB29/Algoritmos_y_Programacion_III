@@ -342,47 +342,47 @@ invalidNumberType
 	self error: self class invalidNumberTypeErrorDescription! !
 
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:34:45'!
-beAddedWithAFraccion: unSumando
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:38:58'!
+beAddedWithAFraccion: anAddend
 
 	self subclassResponsibility. 
 	
 ! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:34:23'!
-beAddedWithAnEntero: unSumando
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:39:06'!
+beAddedWithAnEntero: anAddend
 
 	self subclassResponsibility. 
 	
 ! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:29:24'!
-beDividedWithAFraccion: unDivisor
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:39:12'!
+beDividedWithAFraccion: aDivisor
 
 	self subclassResponsibility .! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:29:35'!
-beDividedWithAnEntero: unDivisor
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:39:16'!
+beDividedWithAnEntero: aDivisor
 
 	self subclassResponsibility .! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:30:06'!
-beMultipliedWithAFraccion: unFactor
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:39:32'!
+beMultipliedWithAFraccion: aMultiplier
 
 	self subclassResponsibility .! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:29:01'!
-beMultipliedWithAnEntero: unFactor
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:39:38'!
+beMultipliedWithAnEntero: aMultiplier
 
 	self subclassResponsibility .! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:32:50'!
-beSubstractedWithAFraccion: unRestando
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:39:44'!
+beSubstractedWithAFraccion: aSubstrahend
 
 	self subclassResponsibility .! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:31:46'!
-beSubstractedWithAnEntero: unRestando
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:39:49'!
+beSubstractedWithAnEntero: aSubstrahend
 
 	self subclassResponsibility .! !
 
