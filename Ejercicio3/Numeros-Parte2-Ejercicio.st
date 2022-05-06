@@ -356,13 +356,13 @@ beAddedWithAnEntero: anAddend
 	
 ! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:39:12'!
-beDividedWithAFraccion: aDivisor
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 17:46:37'!
+beDividedWithAFraccion: aDividend
 
 	self subclassResponsibility .! !
 
-!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:39:16'!
-beDividedWithAnEntero: aDivisor
+!Numero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 17:46:33'!
+beDividedWithAnEntero: aDividend
 
 	self subclassResponsibility .! !
 
@@ -414,7 +414,7 @@ Numero subclass: #Entero
 	
 	^aMultiplier beMultipliedWithAnEntero: self.! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'SB 5/6/2022 15:35:43'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'SB 5/6/2022 19:44:08'!
 + anAdder 
 
 	^anAdder beAddedWithAnEntero: self .
@@ -506,54 +506,45 @@ beAddedWithAFraccion: anAddend
 
 	^ anAddend beAddedWithAnEntero: self.! !
 
-!Entero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:34:23'!
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 19:30:18'!
 beAddedWithAnEntero: anAddend
 
 	^ self class with: value + anAddend integerValue.! !
 
-!Entero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:29:24'!
-beDividedWithAFraccion: aDivisor
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 17:45:39'!
+beDividedWithAFraccion: aDividend
 
-	^ (aDivisor numerator) / (aDivisor denominator * self).
-	"^ (aDivisor numerator) / (aDivisor denominator meMultiplicoConUnEntero: self value)."
-	"^ aDivisor meMultiplicoConUnaFraccion: (self value reciprocal)."! !
+	^ (aDividend numerator) / (aDividend denominator * self).! !
 
-!Entero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:29:35'!
-beDividedWithAnEntero: aDivisor
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 19:42:15'!
+beDividedWithAnEntero: aDividend
 
-	^ Fraccion with: aDivisor over: self.! !
+	^ Fraccion with: aDividend over: self.! !
 
 !Entero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:30:42'!
 beMultipliedWithAFraccion: aMultiplier
 
 	^ (aMultiplier numerator * self) / aMultiplier denominator .! !
 
-!Entero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:31:03'!
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 19:32:27'!
 beMultipliedWithAnEntero: aMultiplier
 
 	^ self class with: value * aMultiplier integerValue .! !
 
-!Entero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:34:23'!
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 19:32:38'!
 beSubstractedWithAFraccion: aSubstrahend
 
-	"|numerador|
-		
-	numerador := (unRestando numerator) - (unRestando denominator * self value).
+	^ aSubstrahend beAddedWithAnEntero: (self negated).! !
 
-	^numerador/unRestando denominator."
-	
-	^aSubstrahend beAddedWithAnEntero: (self negated).! !
-
-!Entero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:34:23'!
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 19:32:44'!
 beSubstractedWithAnEntero: aSubstrahend
 
-	"^ self class with: unRestando integerValue - value ."
-	^aSubstrahend beAddedWithAnEntero: (self negated).! !
+	^ aSubstrahend beAddedWithAnEntero: (self negated).! !
 
-!Entero methodsFor: 'arithmetic operations - private' stamp: 'HernanWilkinson 5/7/2016 21:00'!
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 19:32:47'!
 greatestCommonDivisorWith: anEntero 
 	
-	^self class with: (value gcd: anEntero integerValue)! !
+	^ self class with: (value gcd: anEntero integerValue)! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -663,71 +654,57 @@ printOn: aStream
 		print: denominator ! !
 
 
-!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:34:45'!
+!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 19:40:12'!
 beAddedWithAFraccion: unSumando
 
 	| newNumerator newDenominator |
-	
-	newNumerator := ( numerator * unSumando denominator) + (denominator * unSumando numerator).
-	newDenominator :=  denominator * unSumando denominator.
-	
-	^newNumerator / newDenominator! !
 
-!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:34:23'!
+	newNumerator := (numerator * unSumando denominator) + (denominator * unSumando numerator).
+	newDenominator :=  denominator * unSumando denominator.
+
+	^ newNumerator / newDenominator! !
+
+!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 19:36:39'!
 beAddedWithAnEntero: unSumando
 
 		|numerador|
-		
-		numerador := (unSumando * self denominator) + (self numerator).
-		 	
-		"^Fraccion  with: numerador over: self denominator."
+
+		numerador := (unSumando * denominator) + numerator.
+
 		^ numerador / self denominator.		
 
 		
 		! !
 
-!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:29:24'!
-beDividedWithAFraccion: aDivisor
+!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 17:45:57'!
+beDividedWithAFraccion: aDividend
 
-	^ (denominator * aDivisor numerator) / (numerator * aDivisor denominator) .! !
+	^ (denominator * aDividend numerator) / (numerator * aDividend denominator) .! !
 
-!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:29:35'!
-beDividedWithAnEntero: unDivisor
+!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 19:37:49'!
+beDividedWithAnEntero: unDividend
 
-	"^ Fraccion with: (self denominator * unDivisor value) over: self numerator."
-	^ (self denominator * unDivisor) / self numerator.! !
+	^ (denominator * unDividend) / numerator.! !
 
 !Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:30:06'!
 beMultipliedWithAFraccion: unFactor
 
 	^ (numerator * unFactor numerator) / (denominator * unFactor denominator).! !
 
-!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:29:01'!
+!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 19:38:20'!
 beMultipliedWithAnEntero: unFactor
 
-	"^Fraccion with:((self numerator) * (unFactor value)) over: self denominator ."
-	^ (self numerator * unFactor) / self denominator .! !
+	^ (numerator * unFactor) / denominator .! !
 
-!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:34:45'!
+!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 19:38:49'!
 beSubstractedWithAFraccion: unRestando
 
-	"| newNumerator newDenominator |
-	
-	newNumerator :=  (denominator * unRestando numerator) - (numerator * unRestando denominator).
-	newDenominator := denominator * unRestando denominator.
-	
-	^newNumerator / newDenominator."
 	^ unRestando beAddedWithAFraccion: (self negated).! !
 
-!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 15:34:45'!
+!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SB 5/6/2022 19:38:39'!
 beSubstractedWithAnEntero: unRestando
-		
-		"|numerador|
-		
-		numerador := (self denominator * unRestando value) - (self numerator).
-		 	
-		^Fraccion  with: numerador over: self denominator."
-		^ unRestando beAddedWithAFraccion: (self negated). 
+
+	^ unRestando beAddedWithAFraccion: (self negated). 
 		! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
