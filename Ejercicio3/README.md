@@ -8,9 +8,8 @@ Tomando en cuenta el ejemplo de la suma, donde se encuentran dos sumandos (S1 y 
 
 En el primer llamado, osea en el mensaje "+", conoceríamos el tipo de clase a la cual pertence S1, quien es el receptor del mensaje que se envía con S2 como colaborador. Una vez que nos encontramos situados en el mensaje, desconocemos el tipo de clase de S2 por lo tanto nos vemos forzados a implementar el método utilizando condicionales (If), creando una condición por cada tipo de clase posible del colaborador S2. A partir del segundo llamado, es donde entra la utilización del Double Dispatch.
 
-En el segundo llamado, reemplazaríamos los condicionales por un único mensaje que va a estar en cada uno de los tipos de clase a los que puede pertencer S2 con su respectiva implementación (Que contienen cada uno de los Closures de los condicionales). Luego le enviaríamos ese mensaje a S2 conociendo su tipo de clase. Al conecer la clase a la que pertence el S2 podemos ejecutar el metodo que corresponda sin necesidad de que S1 conozca la funcionalidad de S2.
-Tambien cabe destacar que podriamos utilizar el mismo mensaje con otra clase nueva, a las que podia pertenecer S2, con solo agregar el mensaje a la nuev clase, de forma tal que cuando enviemos esa nueva clase como S2 no habria problema alguno.
-
+En el segundo llamado, reemplazaríamos los condicionales por un único mensaje que va a estar en cada uno de los tipos de clase a los que puede pertencer S2 con su respectiva implementación (Que contienen cada uno de los Closures de los condicionales). Luego le enviaríamos ese mensaje a S2 conociendo su tipo de clase. Al conecer la clase a la que pertence el S2 podemos enviar el mensaje que corresponda sin necesidad de que S1 conozca la funcionalidad de S2.
+También cabe destacar que podriamos utilizar el mismo mensaje con otra clase nueva, a las que podría pertenecer S2, con solo agregar el mensaje a la nueva clase, de forma tal que cuando enviemos un objeto perteneciente a esa nueva clase, como S2 no habria problema alguno.
 
 
 # Lógica de instanciado
@@ -34,4 +33,5 @@ Ponemos "self subclassResponsibility", por el simple hecho de que si alguna subc
 
 # No rompas
 ¿Por qué está mal/qué problemas trae romper encapsulamiento?
+
 Romper el encapsulamiento podría afectar el diseño del programa, ya que si un objeto verificara características de otro objeto para decidir su funcionamiento podría estar excediendo sus responsabilidades. También podrían generar problemas en el funcionamiento del programa, modificando métodos privados que se ejecutan de forma interna, los cuales no deberían ser utilizados por el usuario.
