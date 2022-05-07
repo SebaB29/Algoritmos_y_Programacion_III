@@ -1,19 +1,22 @@
 # Aporte de los mensajes de DD
 En un double dispatch (DD), ¿qué información aporta cada uno de los dos llamados?
 
-La información que aporta cada uno de los llamados, es el tipo de clase al que pertenece el objeto que realiza el llamado.
+Tomando en cuenta el ejemplo de la suma, donde se encuentran dos sumandos (S1 y S2) los cuales pueden ser de diferente clase o igual entre si.
+En el primer llamado, osea en el mensaje "+", conoceríamos el tipo de clase a la cual pertence S1, quien es el receptor del mensaje que se envía con S2 como colaborador. Una vez que nos encontramos situados en el mensaje, desconocemos el tipo de clase de S2 por lo tanto nos vemos forzados a implementar el método utilizando condicionales (If), creando una condición por cada tipo de clase posible del colaborador S2. A partir del segundo llamado, es donde entra la utilización del Double Dispatch.
+
+En el segundo llamado, reemplazaríamos los condicionales por un único mensaje que va a estar en cada uno de los tipos de clase de S2 con su respectiva implementación (Que contienen cada uno de los Closures de los condicionales). Luego le enviaríamos ese mensaje a S2 conociendo su tipo ....
 
 
 # Lógica de instanciado
 Con lo que vieron y saben hasta ahora, ¿donde les parece mejor tener la lógica de cómo instanciar un objeto? ¿por qué? ¿Y si se crea ese objeto desde diferentes lugares y de diferentes formas? ¿cómo lo resuelven?
 
-La lógica de cómo instanciar un objeto es mejor tenerla en los métodos de clase, ya que no tendría sentido que se encuentre en los métodos de instancia, porque la responsabilidad de como crear cada instancia debería ser de la clase ya que cada una de ellas es única y no debería saber cómo crear el resto de instancias. En caso de que se requiera crear ese objeto en distintos lados y de diferentes formas, pueden crearse métodos de inicialización dónde se ejecutaría internamente el método que tiene la lógica de cómo instanciarlo.
+La lógica de cómo instanciar un objeto es mejor tenerla en los métodos de clase, ya que no tendría sentido que se encuentre en los métodos de instancia, porque la responsabilidad de como crear cada instancia debería ser de la clase ya que cada una de ellas es única y no debería saber cómo crear el resto de instancias. En caso de que se requiera crear ese objeto en distintos lados y de diferentes formas, pueden crearse métodos de inicialización dónde se enviarían mensajes internamente para ejecutar el método que tiene la lógica de cómo instanciarlo.
 
 
 # Nombres de las categorías de métodos
 Con lo que vieron y trabajaron hasta ahora, ¿qué criterio están usando para categorizar métodos?
 
-Para categorizar los métodos, nos fijamos en el nombre y el comportamiento de éstos, entonces agrupamos los que sean parecidos. Y en caso de ser métodos que se ejecutan de forma interna, además de categorizarlos mirando las características antes mencionadas, también se los categoriza como privados, para dar a entender que son métodos que no tienen que ser utilizados ni modificados por un usuario.
+Para categorizar los métodos, nos fijamos en el nombre y el comportamiento de éstos, entonces agrupamos los que sean parecidos. Y en caso de ser métodos que se ejecutan mediante el envío de mensajes de forma interna, además de categorizarlos mirando las características antes mencionadas, también se los categoriza como privados, para dar a entender que son métodos que no tienen que ser utilizados ni modificados por un usuario.
 
 
 # Subclass Responsibility
