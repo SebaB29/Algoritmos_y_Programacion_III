@@ -18,6 +18,14 @@ Con lo que vieron y saben hasta ahora, ¿donde les parece mejor tener la lógica
 
 La lógica de cómo instanciar un objeto es mejor tenerla en los métodos de clase, ya que no tendría sentido que se encuentre en los métodos de instancia, porque la responsabilidad de como crear cada instancia debería ser de la clase ya que cada una de ellas es única y no debería saber cómo crear el resto de instancias. En caso de que se requiera crear ese objeto en distintos lados y de diferentes formas, pueden crearse métodos de inicialización dónde se enviarían mensajes internamente para ejecutar el método que tiene la lógica de cómo instanciarlo.
 
+DATO:
+una instancia no puede crear una clase
+
+las clases crean las instancias
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 
 # Nombres de las categorías de métodos
 Con lo que vieron y trabajaron hasta ahora, ¿qué criterio están usando para categorizar métodos?
