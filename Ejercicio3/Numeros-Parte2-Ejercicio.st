@@ -425,7 +425,7 @@ Numero subclass: #Entero
 		
 ! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'SB 5/6/2022 15:31:46'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'SB 5/7/2022 16:45:23'!
 - aSubtrahend 
 
 	^aSubtrahend beSubstractedWithAnEntero: self.! !
