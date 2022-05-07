@@ -2,9 +2,15 @@
 En un double dispatch (DD), ¿qué información aporta cada uno de los dos llamados?
 
 Tomando en cuenta el ejemplo de la suma, donde se encuentran dos sumandos (S1 y S2) los cuales pueden ser de diferente clase o igual entre si.
+
 En el primer llamado, osea en el mensaje "+", conoceríamos el tipo de clase a la cual pertence S1, quien es el receptor del mensaje que se envía con S2 como colaborador. Una vez que nos encontramos situados en el mensaje, desconocemos el tipo de clase de S2 por lo tanto nos vemos forzados a implementar el método utilizando condicionales (If), creando una condición por cada tipo de clase posible del colaborador S2. A partir del segundo llamado, es donde entra la utilización del Double Dispatch.
 
-En el segundo llamado, reemplazaríamos los condicionales por un único mensaje que va a estar en cada uno de los tipos de clase de S2 con su respectiva implementación (Que contienen cada uno de los Closures de los condicionales). Luego le enviaríamos ese mensaje a S2 conociendo su tipo ....
+En el segundo llamado, reemplazaríamos los condicionales por un único mensaje que va a estar en cada uno de los tipos de clase a los que puede pertencer S2 con su respectiva implementación (Que contienen cada uno de los Closures de los condicionales). Luego le enviaríamos ese mensaje a S2 conociendo su tipo de clase. Al conecer la clase a la que pertence el S2 podemos ejecutar el metodo que corresponda sin necesidad de que S1 conozca la funcionalidad de S2.
+Tambien cabe destacar que podriamos utilizar el mismo mensaje con otra clase nueva, a las que podia pertenecer S2, con solo agregar el mensaje a la nuev clase, de forma tal que cuando enviemos esa nueva clase como S2 no habria problema alguno.
+
+En conclusion: en cada uno de los llamados conocemos un tipo de clase. Lo que genera conocer la clase es que desliga a los distintos objetos de conocer informacion/metodologia privada de los objetos colaboradores.
+
+HAY QUE REFORMULARLO BIEN PUSE TODO LO QUE SE ME VINO A LA MENTE Y SEGURAMENTE ESTE MUY MAL REDACTADO Y DEMAS
 
 
 # Lógica de instanciado
