@@ -139,197 +139,116 @@ test10CanNotTopWhenThereAreNoObjectsInTheStack
 
 !classDefinition: #SentenceFinderByPrefixTest category: 'Stack-Exercise'!
 TestCase subclass: #SentenceFinderByPrefixTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'emptyStack stackWithElements finderOfStackWithElements strings upperCasePrefix lowerCasePrefix prefix emptyPrefix finderOfEmptyStack'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 12:27:05'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 20:28:01'!
 test01StatementExample
 
-	| stack finder stringsCollection |
+	self assert: (finderOfStackWithElements find: upperCasePrefix) first = strings last .! !
 
-	stack := OOStack new.
-	finder := SentenceFinderByPrefix new.
-
-	stringsCollection := OrderedCollection with: 'winter is coming' with: 'winning is everything' with: 'The winds of Winter' 					with: 'Winter is here'.
-
-	stringsCollection do: [:string | stack push: string].
-
-	finder copyStack: stack.
-
-	self assert: (finder find: 'Wint') first = stringsCollection last .! !
-
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 12:27:34'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 20:29:03'!
 test02CheckingCaseSensitive
 
-	| stack finder stringsCollection |
+	self assert: (finderOfStackWithElements find: upperCasePrefix) first = strings last .
+	self assert: (finderOfStackWithElements find: lowerCasePrefix) first = strings first .! !
 
-	stack := OOStack new.
-	finder := SentenceFinderByPrefix new.
-
-	stringsCollection := OrderedCollection with: 'Boca' with: 'boca'.
-	stringsCollection do: [:string | stack push: string].
-
-	finder copyStack: stack.
-
-	self assert: (finder find: 'boca') first = stringsCollection last .
-	self assert: (finder find: 'Boca') first = stringsCollection first .! !
-
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 12:30:45'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 20:29:10'!
 test03FindMoreThanAnElementWithOnePrefix
 
-	| stack finder stringsCollection |
+	self assert: (finderOfStackWithElements find: prefix ) = (strings copyFrom: 1 to: 2).! !
 
-	stack := OOStack new.
-	finder := SentenceFinderByPrefix new.
-
-	stringsCollection := OrderedCollection with: 'Hola Mundo' with: 'Holanda' with: 'Hola World' with: 'hola que ase'.
-	stringsCollection do: [:string | stack push: string].
-
-	finder copyStack: stack.
-
-	self assert: (finder find: 'Hola') = (stringsCollection copyFrom: 1 to: 3).! !
-
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 12:43:27'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 20:29:17'!
 test04CanNotFindAnyElementWithAPrefix
+	
+	self assert: (finderOfStackWithElements find: 'hola') size = 0 .! !
 
-	| stack finder stringsCollection stringsEncontrados |
-
-	stack := OOStack new.
-	finder := SentenceFinderByPrefix new.
-
-	stringsCollection := OrderedCollection with: 'winter is coming' with: 'winning is everything' with: 'The winds of Winter'.
-	stringsCollection do: [:string | stack push: string].
-
-	finder copyStack: stack.
-	stringsEncontrados := finder find: 'Wint'.
-	self assert: stringsEncontrados size = 0 .! !
-
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 12:34:20'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 20:29:20'!
 test05CanNotFindAnElementInEmptyStack
 
-	| stack finder stringsEncontrados |
+	self assert: (finderOfEmptyStack find: prefix) size = 0 .! !
 
-	stack := OOStack new.
-	finder := SentenceFinderByPrefix new.
-
-	finder copyStack: stack.
-	stringsEncontrados := finder find: 'Wint'.
-	self assert: stringsEncontrados size = 0 .! !
-
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 15:27:06'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 20:29:29'!
 test06PrefixCanNotBeEmptyString
 
-	| stack finder stringsCollection |
-
-	stack := OOStack new.
-	finder := SentenceFinderByPrefix new.
-
-	stringsCollection := OrderedCollection with: 'winter is coming' with: 'winning is everything' with: 'The winds of Winter'.
-	stringsCollection do: [:string | stack push: string].
-
-	finder copyStack: stack.
-
 	self
-		should: [ finder find: '' ]
+		should: [ finderOfStackWithElements find: emptyPrefix ]
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [ :anError |
 			self assert: anError messageText = SentenceFinderByPrefix prefixEmptyErrorDescription ]! !
 
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 16:38:40'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 20:29:34'!
 test07CanNotFindAStringComposedWithMoreThanAWord
 
-	| stack finder stringsCollection |
-
-	stack := OOStack new.
-	finder := SentenceFinderByPrefix new.
-
-	stringsCollection := OrderedCollection with: 'winter is coming' with: 'winning is everything' with: 'The winds of Winter'.
-	stringsCollection do: [:string | stack push: string].
-
-	finder copyStack: stack.
-
 	self
-		should: [ finder find: 'winter is' ]
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [ :anError |
-			self assert: anError messageText = SentenceFinderByPrefix
-						prefixIsComposedOfMoreThanAWordErrorDescription]! !
-
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 12:41:35'!
-test08AfterFindAPrefixStackRetainsTheSize
-
-	| stack finder stringsCollection |
-
-	stack := OOStack new.
-	finder := SentenceFinderByPrefix new.
-
-	stringsCollection := OrderedCollection with: 'winter is coming' with: 'winning is everything' with: 'The winds of Winter'.
-	stringsCollection do: [:string | stack push: string].
-
-	self assert: stack size = 3 .
-
-	finder copyStack: stack.
-	finder find: 'wint'.
-
-	self assert: stack size = 3 .! !
-
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 12:46:10'!
-test09FoundAPrefixThenPopThenCanNotFound
-
-	| stack finder stringsCollection stringDePrueba |
-	
-	stringDePrueba := 'Boca'.
-
-	stack := OOStack new.
-	finder := SentenceFinderByPrefix new.
-
-	stringsCollection := OrderedCollection with: 'palabra' with: stringDePrueba .
-	stringsCollection do: [:string | stack push: string].
-
-	finder copyStack: stack.
-
-	self assert: (finder find: stringDePrueba) size = 1 .
-
-	stack pop.
-	finder copyStack: stack.
-
-	self assert: (finder find: stringDePrueba) size = 0 .! !
-
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 12:43:00'!
-test10SearchingTwiceReturnsTheSame
-
-	| stack finder stringsCollection |
-
-	stack := OOStack new.
-	finder := SentenceFinderByPrefix new.
-
-	stringsCollection := OrderedCollection with: 'Boca' with: 'boca'.
-	stringsCollection do: [:string | stack push: string].
-
-	finder copyStack: stack.
-
-	self assert: (finder find: 'boca') = (finder find: 'boca').! !
-
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 16:33:28'!
-test11PrefixCanNotBeAnEmptySpace
-
-	| stack finder stringsCollection |
-
-	stack := OOStack new.
-	finder := SentenceFinderByPrefix new.
-
-	stringsCollection := OrderedCollection with: 'winter is coming' with: 'winning is everything' with: 'The winds of Winter'.
-	stringsCollection do: [:string | stack push: string].
-
-	finder copyStack: stack.
-
-	self
-		should: [ finder find: ' ' ]
+		should: [ finderOfStackWithElements find: 'winter is' ]
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [ :anError |
 			self assert: anError messageText = SentenceFinderByPrefix prefixEmptySpaceErrorDescription ]! !
+
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 20:30:22'!
+test08AfterFindAPrefixStackRetainsTheSize
+
+	self assert: stackWithElements size = 4 .
+	
+	finderOfStackWithElements find: prefix.
+
+	self assert: stackWithElements size = 4 .! !
+
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 20:30:33'!
+test09FoundAPrefixThenPopThenCanNotFound
+
+	self assert: (finderOfStackWithElements find: upperCasePrefix) size = 1 .
+
+	stackWithElements pop.
+	finderOfStackWithElements copyStack: stackWithElements .
+
+	self assert: (finderOfStackWithElements find: upperCasePrefix) size = 0 .! !
+
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 20:29:50'!
+test10SearchingTwiceReturnsTheSame
+
+	self assert: (finderOfStackWithElements find: prefix) = (finderOfStackWithElements find: prefix).! !
+
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'SB 5/14/2022 20:29:54'!
+test11PrefixCanNotBeAnEmptySpace
+
+	self
+		should: [ finderOfStackWithElements find: ' ' ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = SentenceFinderByPrefix prefixEmptySpaceErrorDescription ]! !
+
+
+!SentenceFinderByPrefixTest methodsFor: 'initialize' stamp: 'SB 5/14/2022 19:41:35'!
+initializeStackWithElements: stringsCollection
+
+	stringsCollection do: [:string | stackWithElements push: string].! !
+
+
+!SentenceFinderByPrefixTest methodsFor: 'setUp' stamp: 'SB 5/14/2022 20:28:55'!
+setUp
+
+	finderOfStackWithElements := SentenceFinderByPrefix new.
+	finderOfEmptyStack := SentenceFinderByPrefix new.
+	emptyStack := OOStack new.
+	stackWithElements := OOStack new.
+	
+	prefix := 'win'.
+	upperCasePrefix := 'Wint'.
+	lowerCasePrefix := 'wint'.
+	emptyPrefix := ''.
+
+	strings := OrderedCollection with: 'winter is coming' with: 'winning is everything' with: 'The winds of Winter'	
+			with: 'Winter is here'.
+	
+	self initializeStackWithElements: strings.
+	
+	finderOfStackWithElements copyStack: stackWithElements .
+	finderOfEmptyStack copyStack: emptyStack .
+	! !
 
 
 !classDefinition: #OOStack category: 'Stack-Exercise'!
@@ -428,130 +347,9 @@ stackEmptyErrorDescription
 	^ 'Stack is empty'! !
 
 
-!classDefinition: #PrefixClass category: 'Stack-Exercise'!
-Object subclass: #PrefixClass
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Stack-Exercise'!
-
-!PrefixClass methodsFor: 'find' stamp: 'SB 5/14/2022 16:03:01'!
-findElement: finder
-
-	self subclassResponsibility .! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'PrefixClass class' category: 'Stack-Exercise'!
-PrefixClass class
-	instanceVariableNames: ''!
-
-!PrefixClass class methodsFor: 'prefix checking' stamp: 'SB 5/14/2022 16:12:01'!
-doYouAcceptMyString: aString
-
-	self subclassResponsibility .! !
-
-
-!classDefinition: #ComposedString category: 'Stack-Exercise'!
-PrefixClass subclass: #ComposedString
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Stack-Exercise'!
-
-!ComposedString methodsFor: 'find' stamp: 'SB 5/14/2022 16:03:01'!
-findElement: finder
-
-	finder ifPrefixIsComposedOfMoreThanAWordReturnError: self.! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'ComposedString class' category: 'Stack-Exercise'!
-ComposedString class
-	instanceVariableNames: ''!
-
-!ComposedString class methodsFor: 'prefix checking' stamp: 'SB 5/14/2022 16:18:26'!
-doYouAcceptMyString: aString
-
-	^aString substrings size > 1.
-	"^aString includesSubString: ' '."! !
-
-
-!classDefinition: #EmptySpaceString category: 'Stack-Exercise'!
-PrefixClass subclass: #EmptySpaceString
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Stack-Exercise'!
-
-!EmptySpaceString methodsFor: 'find' stamp: 'SB 5/14/2022 16:29:40'!
-findElement: finder
-
-	finder ifPrefixIsEmptySpaceReturnError .! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'EmptySpaceString class' category: 'Stack-Exercise'!
-EmptySpaceString class
-	instanceVariableNames: ''!
-
-!EmptySpaceString class methodsFor: 'prefix checking' stamp: 'SB 5/14/2022 16:31:55'!
-doYouAcceptMyString: aString
-
-	^ (aString includesSubString: ' ') .! !
-
-
-!classDefinition: #EmptyString category: 'Stack-Exercise'!
-PrefixClass subclass: #EmptyString
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Stack-Exercise'!
-
-!EmptyString methodsFor: 'find' stamp: 'SB 5/14/2022 16:03:01'!
-findElement: finder
-
-	finder ifPrefixIsEmptyReturnError.! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'EmptyString class' category: 'Stack-Exercise'!
-EmptyString class
-	instanceVariableNames: ''!
-
-!EmptyString class methodsFor: 'prefix checking' stamp: 'SB 5/14/2022 16:12:01'!
-doYouAcceptMyString: aString
-
-	^aString isEmpty .! !
-
-
-!classDefinition: #SingleString category: 'Stack-Exercise'!
-PrefixClass subclass: #SingleString
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Stack-Exercise'!
-
-!SingleString methodsFor: 'find' stamp: 'SB 5/14/2022 16:03:01'!
-findElement: finder
-
-	^finder findAStringInStack.! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'SingleString class' category: 'Stack-Exercise'!
-SingleString class
-	instanceVariableNames: ''!
-
-!SingleString class methodsFor: 'prefix checking' stamp: 'SB 5/14/2022 16:21:29'!
-doYouAcceptMyString: aString
-
-	^ (aString includesSubString: ' ') not and: (aString substrings size = 1).! !
-
-
 !classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
-	instanceVariableNames: 'stack prefixCollaborator string'
+	instanceVariableNames: 'stack'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
@@ -566,41 +364,25 @@ copyStack: aStack
 	stack do: [:anElement | aStack push: anElement].! !
 
 
-!SentenceFinderByPrefix methodsFor: 'error handling' stamp: 'SB 5/14/2022 15:26:05'!
-ifPrefixIsComposedOfMoreThanAWordReturnError: Prefix
+!SentenceFinderByPrefix methodsFor: 'error handling' stamp: 'SB 5/14/2022 20:11:54'!
+ifPrefixIsEmptyReturnError: prefix
 
-	self error: SentenceFinderByPrefix		 prefixIsComposedOfMoreThanAWordErrorDescription.! !
+	(prefix isEmpty) ifTrue: [self error: SentenceFinderByPrefix prefixEmptyErrorDescription].! !
 
-!SentenceFinderByPrefix methodsFor: 'error handling' stamp: 'SB 5/14/2022 15:26:10'!
-ifPrefixIsEmptyReturnError
+!SentenceFinderByPrefix methodsFor: 'error handling' stamp: 'SB 5/14/2022 20:12:11'!
+ifPrefixIsEmptySpaceReturnError: prefix
 
-	self error: SentenceFinderByPrefix prefixEmptyErrorDescription.! !
-
-!SentenceFinderByPrefix methodsFor: 'error handling' stamp: 'SB 5/14/2022 16:29:21'!
-ifPrefixIsEmptySpaceReturnError
-
-	self error: SentenceFinderByPrefix prefixEmptySpaceErrorDescription .! !
+	(prefix includesSubString: ' ') ifTrue: [self error: SentenceFinderByPrefix prefixEmptySpaceErrorDescription].! !
 
 
-!SentenceFinderByPrefix methodsFor: 'basic operation' stamp: 'SB 5/14/2022 16:12:01'!
-definePrefixClass: Prefix
+!SentenceFinderByPrefix methodsFor: 'basic operation' stamp: 'SB 5/14/2022 20:12:19'!
+find: prefix
 
-	| subclassPrefix |
-	subclassPrefix := PrefixClass subclasses detect: [:class | class doYouAcceptMyString: Prefix].
+	self ifPrefixIsEmptyReturnError: prefix.
 
-	string := Prefix.
-	prefixCollaborator := subclassPrefix new.! !
+	self ifPrefixIsEmptySpaceReturnError: prefix.
 
-!SentenceFinderByPrefix methodsFor: 'basic operation' stamp: 'SB 5/14/2022 16:03:01'!
-find: Prefix
-
-	self definePrefixClass: Prefix.
-	^prefixCollaborator findElement: self.! !
-
-!SentenceFinderByPrefix methodsFor: 'basic operation' stamp: 'SB 5/14/2022 15:36:32'!
-findAStringInStack
-
-	^stack select: [:aString | aString beginsWith: string].! !
+	^stack select: [:s | s beginsWith: prefix].! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -617,11 +399,6 @@ prefixEmptyErrorDescription
 prefixEmptySpaceErrorDescription
 	
 	^ 'Prefix can not allow empty space'! !
-
-!SentenceFinderByPrefix class methodsFor: 'error descriptions' stamp: 'SB 5/14/2022 11:51:40'!
-prefixIsComposedOfMoreThanAWordErrorDescription
-
-	^ 'Prefix should not be composed of more than a word'! !
 
 
 !classDefinition: #StackStatus category: 'Stack-Exercise'!
