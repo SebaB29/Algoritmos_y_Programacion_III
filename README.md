@@ -4,7 +4,7 @@
 ## 📜 Descripción
 
 <p align="justify">
-Este repositorio contiene los ejercicios prácticos resueltos para la materia **Algoritmos y Programación III**. Cada carpeta incluye uno o más ejercicios junto con su correspondiente README, donde se detalla la explicación y el enfoque utilizado para resolver cada uno.
+Este repositorio contiene los ejercicios prácticos resueltos para la materia <b>Algoritmos y Programación III</b>. Cada carpeta incluye uno o más ejercicios junto con su correspondiente README, donde se detalla la explicación y el enfoque utilizado para resolver cada uno.
 </p>
 
 ## 👥 Integrantes  
