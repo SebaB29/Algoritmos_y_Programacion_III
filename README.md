@@ -8,10 +8,10 @@ Este repositorio contiene los ejercicios prácticos resueltos para la materia <b
 </p>
 
 ## 👥 Integrantes  
-| Nombre               | Github                                       |
-|----------------------|----------------------------------------------|
-| Sebastián Brizuela    | -                                           |
-| Federico Solari       | [fedesolari](https://github.com/fedesolari) |
+| Nombre               | Github                                      |
+|----------------------|---------------------------------------------|
+| Sebastián Brizuela   | [SebaB29](https://github.com/SebaB29)       |
+| Federico Solari      | [fedesolari](https://github.com/fedesolari) |
 
 ## 📄 Licencia  
 Este proyecto está bajo la licencia MIT. Para más detalles, consulta el archivo [LICENSE](./LICENSE).
